@@ -3,27 +3,43 @@ package pokedexapp;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainReadCSV {
     public static void main(String[] args) {
-        // Path to the CSV file (put the file in the project root folder)
         String csvFile = "pokedex_gen1.csv";
         String line;
-        String separator = ";"; // Use semicolon because your CSV uses ';'
+        String separator = ";";
+
+        List<Pokemon> pokedex = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            // Read header line
             String header = br.readLine();
             System.out.println("Header: " + header);
 
-            // Read each data line
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(separator);
-                if (data.length > 1) {
-                    String id = data[0];
+                if (data.length >= 10) {
+                    int id = Integer.parseInt(data[0]);
                     String name = data[1];
-                    System.out.println("ID: " + id + " | Name: " + name);
+                    String type1 = data[2];
+                    String type2 = data[3];
+                    int hp = Integer.parseInt(data[4]);
+                    int attack = Integer.parseInt(data[5]);
+                    int defense = Integer.parseInt(data[6]);
+                    int speed = Integer.parseInt(data[7]);
+                    int special = Integer.parseInt(data[8]);
+                    int total = Integer.parseInt(data[9]);
+
+                    Pokemon p = new Pokemon(id, name, type1, type2, hp, attack, defense, speed, special, total);
+                    pokedex.add(p);
                 }
+            }
+
+            // Print all Pokémon
+            for (Pokemon p : pokedex) {
+                System.out.println(p);
             }
 
         } catch (IOException e) {
