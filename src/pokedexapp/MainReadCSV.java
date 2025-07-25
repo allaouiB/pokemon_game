@@ -12,6 +12,9 @@ public class MainReadCSV {
         String csvFile = "pokedex_gen1.csv";
         String line;
         String separator = ";";
+        
+        plateau plateau = new plateau();
+        plateau.afficherPlateau();
 
         List<Pokemon> pokedex = new ArrayList<>();
 
@@ -104,4 +107,5 @@ public class MainReadCSV {
         }
         return null;
     }
+
 }
